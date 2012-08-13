@@ -71,6 +71,10 @@ namespace RabbitMQ.ServiceModel
             rabbind.ConnectionFactory.Password = this.Password;
             rabbind.ConnectionFactory.UserName = this.Username;
             rabbind.ConnectionFactory.VirtualHost = this.VirtualHost;
+            rabbind.QueueName = this.QueueName;
+            rabbind.Durable = this.Durable;
+            rabbind.Exclusive = this.Exclusive;
+            rabbind.AutoDelete = this.AutoDelete;
         }
 
         public override void CopyFrom(ServiceModelExtensionElement from)
@@ -122,6 +126,10 @@ namespace RabbitMQ.ServiceModel
             this.Password = rabbind.ConnectionFactory.Password;
             this.Username = rabbind.ConnectionFactory.UserName;
             this.VirtualHost = rabbind.ConnectionFactory.VirtualHost;
+            this.QueueName = rabbind.QueueName;
+            this.Durable = rabbind.Durable;
+            this.AutoDelete = rabbind.AutoDelete;
+            this.Exclusive = rabbind.Exclusive;
         }
 
         public override System.Type BindingElementType
@@ -137,6 +145,35 @@ namespace RabbitMQ.ServiceModel
         {
             get { return ((String)base["hostname"]); }
             set { base["hostname"] = value; }
+        }
+
+
+        [ConfigurationProperty("queueName", IsRequired = true)]
+        public String QueueName
+        {
+            get { return ((String)base["queueName"]); }
+            set { base["queueName"] = value; }
+        }
+
+        [ConfigurationProperty("durable", IsRequired = true)]
+        public String Durable
+        {
+            get { return ((String)base["durable"]); }
+            set { base["durable"] = value; }
+        }
+
+        [ConfigurationProperty("autoDelete", IsRequired = true)]
+        public String AutoDelete
+        {
+            get { return ((String)base["autoDelete"]); }
+            set { base["autoDelete"] = value; }
+        }
+
+        [ConfigurationProperty("exclusive", IsRequired = true)]
+        public String Exclusive
+        {
+            get { return ((String)base["exclusive"]); }
+            set { base["exclusive"] = value; }
         }
 
         /// <summary>

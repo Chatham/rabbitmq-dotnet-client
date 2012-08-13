@@ -39,6 +39,7 @@
 //---------------------------------------------------------------------------
 
 
+
 namespace RabbitMQ.ServiceModel
 {
     using System;
@@ -64,10 +65,12 @@ namespace RabbitMQ.ServiceModel
         private String m_username;
         private String m_password;
         private String m_vhost;
+        private QueueSettings queueSettings = new QueueSettings();
 
         /// <summary>
         /// Creates a new instance of the RabbitMQTransportBindingElement Class using the default protocol.
         /// </summary>
+        /// <param name="queueName"> </param>
         public RabbitMQTransportBindingElement()
         {
             MaxReceivedMessageSize = RabbitMQBinding.DefaultMaxMessageSize;
@@ -82,6 +85,10 @@ namespace RabbitMQ.ServiceModel
             Password = other.Password;
             VirtualHost = other.VirtualHost;
             MaxReceivedMessageSize = other.MaxReceivedMessageSize;
+            this.QueueName = other.QueueName;
+            this.Durable = other.Durable;
+            this.AutoDelete = other.AutoDelete;
+            this.Exclusive = other.Exclusive;
         }
 
         
@@ -97,7 +104,7 @@ namespace RabbitMQ.ServiceModel
             if (HostName == null)
                 throw new InvalidOperationException("No broker was specified.");
 
-            return (IChannelListener<TChannel>)((object)new RabbitMQChannelListener<TChannel>(context));
+            return (IChannelListener<TChannel>)((object)new RabbitMQChannelListener<TChannel>(context, queueSettings));
         }
 
         public override bool CanBuildChannelFactory<TChannel>(BindingContext context)
@@ -177,6 +184,53 @@ namespace RabbitMQ.ServiceModel
                 m_connectionFactory = null;
             }
         }
+
+        [ConfigurationProperty("queueName")]
+        public String QueueName
+        {
+            get { return this.queueSettings.queueName; }
+            set
+            {
+                this.queueSettings.queueName = value;
+                m_connectionFactory = null;
+            }
+        }
+
+
+        [ConfigurationProperty("durable")]
+        public String Durable
+        {
+            get { return this.queueSettings.durable; }
+            set
+            {
+                this.queueSettings.durable = value;
+                m_connectionFactory = null;
+            }
+        }
+
+        [ConfigurationProperty("autoDelete")]
+        public String AutoDelete
+        {
+            get { return this.queueSettings.autoDelete; }
+            set
+            {
+                this.queueSettings.autoDelete = value;
+                m_connectionFactory = null;
+            }
+        }
+
+
+        [ConfigurationProperty("exclusive")]
+        public String Exclusive
+        {
+            get { return this.queueSettings.exclusive; }
+            set
+            {
+                this.queueSettings.exclusive = value;
+                m_connectionFactory = null;
+            }
+        }
+
 
         /// <summary>
         /// Specifies the RabbitMQ Server port

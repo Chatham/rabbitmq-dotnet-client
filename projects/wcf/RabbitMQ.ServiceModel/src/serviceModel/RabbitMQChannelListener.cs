@@ -39,6 +39,7 @@
 //---------------------------------------------------------------------------
 
 
+
 namespace RabbitMQ.ServiceModel
 {
     using System;
@@ -54,12 +55,14 @@ namespace RabbitMQ.ServiceModel
 
         private IInputChannel m_channel;
         private IModel m_model;
+        private QueueSettings queueSettings;
 
-        internal RabbitMQChannelListener(BindingContext context)
+        internal RabbitMQChannelListener(BindingContext context, QueueSettings queueSettings)
             : base(context)
         {
             m_channel = null;
             m_model = null;
+            this.queueSettings = queueSettings;
         }
 
         protected override IInputChannel OnAcceptChannel(TimeSpan timeout)
@@ -69,7 +72,7 @@ namespace RabbitMQ.ServiceModel
             if (m_channel != null)
                 return null;
 
-            m_channel = new RabbitMQInputChannel(Context, m_model, new EndpointAddress(Uri.ToString()));
+            m_channel = new RabbitMQInputChannel(Context, m_model, new EndpointAddress(Uri.ToString()), queueSettings);
             m_channel.Closed += new EventHandler(ListenChannelClosed);
             return m_channel;
         }

@@ -40,6 +40,8 @@
 
 
 //TODO: Rename to RabbitMQBinding
+
+
 namespace RabbitMQ.ServiceModel
 {
     using System;
@@ -68,6 +70,7 @@ namespace RabbitMQ.ServiceModel
         private RabbitMQTransportBindingElement m_transport;
 
         public static readonly long DefaultMaxMessageSize = 8192L;
+        public QueueSettings queueSettings = new QueueSettings();
 
         /// <summary>
         /// Creates a new instance of the RabbitMQBinding class initialized
@@ -111,8 +114,8 @@ namespace RabbitMQ.ServiceModel
         /// <param name="virtualhost">The broker virtual host</param>
         /// <param name="maxMessageSize">The largest allowable encoded message size</param>
         /// <param name="protocol">The protocol version to use</param>
-        public RabbitMQBinding(String hostname, int port,                               
-                               String username, String password,  String virtualhost,
+        public RabbitMQBinding(String hostname, int port,
+                               String username, String password, String virtualhost,
                                long maxMessageSize, IProtocol protocol)
             : this(protocol)
         {
@@ -145,6 +148,13 @@ namespace RabbitMQ.ServiceModel
             m_transport.HostName = this.HostName;
             m_transport.Port = this.Port;
             m_transport.BrokerProtocol = this.BrokerProtocol;
+
+            m_transport.QueueName = this.QueueName;
+            m_transport.Durable = this.Durable;
+            m_transport.AutoDelete = this.AutoDelete;
+            m_transport.Exclusive = this.Exclusive;
+
+
             if (MaxMessageSize != DefaultMaxMessageSize)
             {
                 m_transport.MaxReceivedMessageSize = MaxMessageSize;
@@ -173,6 +183,7 @@ namespace RabbitMQ.ServiceModel
                 if (!m_isInitialized)
                 {
                     m_transport = new RabbitMQTransportBindingElement();
+                    
                     m_encoding = new TextMessageEncodingBindingElement(); // new TextMessageEncodingBindingElement();
                     m_session = new ReliableSessionBindingElement();
                     m_compositeDuplex = new CompositeDuplexBindingElement();
@@ -199,6 +210,34 @@ namespace RabbitMQ.ServiceModel
         {
             get { return m_host; }
             set { m_host = value; }
+        }
+
+        [ConfigurationProperty("queueName")]
+        public String QueueName
+        {
+            get { return this.queueSettings.queueName; }
+            set { this.queueSettings.queueName = value; }
+        }
+
+        [ConfigurationProperty("durable")]
+        public String Durable
+        {
+            get { return this.queueSettings.durable; }
+            set { this.queueSettings.durable = value; }
+        }
+
+        [ConfigurationProperty("autoDelete")]
+        public String AutoDelete
+        {
+            get { return this.queueSettings.autoDelete; }
+            set { this.queueSettings.autoDelete = value; }
+        }
+
+        [ConfigurationProperty("exclusive")]
+        public String Exclusive
+        {
+            get { return this.queueSettings.exclusive; }
+            set { this.queueSettings.exclusive = value; }
         }
 
         /// <summary>

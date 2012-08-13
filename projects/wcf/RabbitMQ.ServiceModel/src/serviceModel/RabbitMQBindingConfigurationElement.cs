@@ -115,6 +115,10 @@ namespace RabbitMQ.ServiceModel
             rabbind.Transport.Username = this.Username;
             rabbind.Transport.VirtualHost = this.VirtualHost;
             rabbind.Transport.MaxReceivedMessageSize = this.MaxMessageSize;
+            rabbind.QueueName = this.QueueName;
+            rabbind.Durable = this.Durable;
+            rabbind.AutoDelete = this.AutoDelete;
+            rabbind.Exclusive = this.Exclusive;
         }
 
         /// <summary>
@@ -126,6 +130,40 @@ namespace RabbitMQ.ServiceModel
             get { return ((String)base["hostname"]); }
             set { base["hostname"] = value; }
         }
+
+
+        [ConfigurationProperty("queueName", IsRequired = true)]
+        public String QueueName
+        {
+            get { return ((String)base["queueName"]); }
+            set { base["queueName"] = value; }
+        }
+
+
+        [ConfigurationProperty("durable", IsRequired = true)]
+        public String Durable
+        {
+            get { return ((String)base["durable"]); }
+            set { base["durable"] = value; }
+        }
+
+
+        [ConfigurationProperty("autoDelete", IsRequired = true)]
+        public String AutoDelete
+        {
+            get { return ((String)base["autoDelete"]); }
+            set { base["autoDelete"] = value; }
+        }
+
+
+        [ConfigurationProperty("exclusive", IsRequired = true)]
+        public String Exclusive
+        {
+            get { return ((String)base["exclusive"]); }
+            set { base["exclusive"] = value; }
+        }
+
+
 
         /// <summary>
         /// Specifies the port of the broker that the binding should connect to.

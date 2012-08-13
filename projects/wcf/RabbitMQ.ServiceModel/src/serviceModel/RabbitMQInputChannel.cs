@@ -39,6 +39,7 @@
 //---------------------------------------------------------------------------
 
 
+
 namespace RabbitMQ.ServiceModel
 {
     using System;
@@ -62,8 +63,10 @@ namespace RabbitMQ.ServiceModel
         private MessageEncoder m_encoder;
         private IModel m_model;
         private QueueingBasicConsumer m_messageQueue;
+        private QueueSettings queueSettings;
 
-        public RabbitMQInputChannel(BindingContext context, IModel model, EndpointAddress address)
+
+        public RabbitMQInputChannel(BindingContext context, IModel model, EndpointAddress address, QueueSettings queueSettings)
             : base(context, address)
         {
             m_bindingElement = context.Binding.Elements.Find<RabbitMQTransportBindingElement>();
@@ -74,6 +77,8 @@ namespace RabbitMQ.ServiceModel
             }
             m_model = model;
             m_messageQueue = null;
+            this.queueSettings = queueSettings;
+
         }
 
 
@@ -150,7 +155,21 @@ namespace RabbitMQ.ServiceModel
             DebugHelper.Start();
 #endif
             //Create a queue for messages destined to this service, bind it to the service URI routing key
-            string queue = m_model.QueueDeclare();
+            string queue;
+
+            if(new QueueSettingsValidator(queueSettings).Validate())
+            {
+                queue = m_model.QueueDeclare(queueSettings.queueName, 
+                    Boolean.Parse(queueSettings.durable), 
+                    Boolean.Parse(queueSettings.exclusive), 
+                    Boolean.Parse(queueSettings.autoDelete),
+                    null).QueueName;                           
+            }
+            else
+            {
+                queue = m_model.QueueDeclare().QueueName;
+            }
+
             m_model.QueueBind(queue, Exchange, base.LocalAddress.Uri.PathAndQuery, null);
 
             //Listen to the queue
