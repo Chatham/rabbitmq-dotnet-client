@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <!-- Warning! This file contains important customizations. Using Visual Studio to edit project's properties might break things. -->
-    
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Warning! This file contains important customizations. Using Visual Studio to edit project's properties might break things. -->
   <!-- Props file -->
   <Import Project="$(MSBuildProjectDirectory)\..\..\..\..\Local.props" />
-   
   <!-- Visual Studio generated -->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -18,6 +16,25 @@
     <AssemblyName>RabbitMQ.ServiceModel.Test</AssemblyName>
     <TargetFrameworkVersion>$(PropTargetFramework)</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,6 +44,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,6 +53,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -73,12 +92,27 @@
       <Name>RabbitMQ.ServiceModel</Name>
     </ProjectReference>
   </ItemGroup>
-  
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <!-- Mono compatibility workarounds -->
   <PropertyGroup Condition=" '$(PropUsingMono)' == 'true'">
     <_DisabledWarnings>$(NoWarn)</_DisabledWarnings>
   </PropertyGroup>
-  
   <!-- Microsoft CSharp targets; replace Build, Rebuild and Clean targets if building WCF is turned off -->
   <Target Name="Build" Condition="'$(PropBuildWcf)' != 'true'">
     <Message Text="Not building anything in $(MSBuildProjectName) because PropBuildWcf is false." />
@@ -89,7 +123,5 @@
   <Target Name="Clean" Condition="'$(PropBuildWcf)' != 'true'">
     <Message Text="Not cleaning anything in $(MSBuildProjectName) because PropBuildWcf is false." />
   </Target>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="'$(PropBuildWcf)' == 'true'"/>
-  
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="'$(PropBuildWcf)' == 'true'" />
 </Project>
-

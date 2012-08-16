@@ -75,7 +75,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>properties</AppDesignerFolder>
     <RootNamespace>RabbitMQ.ServiceModel</RootNamespace>
-    <AssemblyName>RabbitMQ.ServiceModel</AssemblyName>
+    <AssemblyName>RabbitMQ.ServiceModel.Custom</AssemblyName>
     <TargetFrameworkVersion>$(PropTargetFramework)</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -87,7 +87,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>build\bin\RabbitMQ.ServiceModel.xml</DocumentationFile>
+    <DocumentationFile>build\bin\RabbitMQ.ServiceModel.Custom.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -98,7 +98,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>build\bin\RabbitMQ.ServiceModel.xml</DocumentationFile>
+    <DocumentationFile>build\bin\RabbitMQ.ServiceModel.Custom.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
