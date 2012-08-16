@@ -56,6 +56,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\..\..\packages\RabbitMQ.Client.2.8.4\lib\net30\RabbitMQ.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -81,12 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\client\RabbitMQ.Client\RabbitMQ.Client.csproj">
-      <Project>{71713FDD-D5EC-40B2-A924-76F80AD57E12}</Project>
-      <Name>RabbitMQ.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\wcf\RabbitMQ.ServiceModel\RabbitMQ.ServiceModel.csproj">
       <Project>{5117232B-EE07-46F8-8AF5-2B636F1DBF56}</Project>
       <Name>RabbitMQ.ServiceModel</Name>
