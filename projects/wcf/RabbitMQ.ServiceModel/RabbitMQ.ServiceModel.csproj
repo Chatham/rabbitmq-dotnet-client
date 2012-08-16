@@ -103,6 +103,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RabbitMQ.Client, Version=2.8.4.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\RabbitMQ.Client.2.8.4\lib\net30\RabbitMQ.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -111,12 +115,6 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Runtime.Serialization" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\client\RabbitMQ.Client\RabbitMQ.Client.csproj">
-      <Project>{71713FDD-D5EC-40B2-A924-76F80AD57E12}</Project>
-      <Name>RabbitMQ.Client</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\serviceModel\**\*.cs" />
@@ -137,6 +135,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <!-- Mono compatibility workarounds -->
   <PropertyGroup Condition=" '$(PropUsingMono)' == 'true'">
